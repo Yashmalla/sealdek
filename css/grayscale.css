@@ -33,12 +33,12 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         font-style: normal;
         color: #37317A;
-        font-weight: bolder;
+        font-weight: bold;
         font-size: 30px;
     }
     .DEK1 {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        font-weight: bolder;
+        font-weight: bold;
         color: #A1862C;
         font-size: 30px;
     }
@@ -64,11 +64,12 @@
       100% { opacity:1; }
     }
     .typed{
-        color: black;
+        font-family: Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        color: #37317A;
         margin-top: 100px;
         margin-bottom: 50px;
         font-weight: bolder;
-        font-size: 49px;
+        font-size: xx-large;
     }
 
     h1,
@@ -77,6 +78,8 @@
     h4,
     h5,
     h6 {
+        color: #37317A;
+        white-space: nowrap;
         margin: 0 0 35px;
         text-transform: uppercase;
         font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -153,8 +156,9 @@
     }
 
     .navbar-custom .nav li a:hover {
+        font-size: 16px;
         outline: 0;
-        color: rgba(255,255,255,.8);
+        color: black;
         background-color: transparent;
     }
 
@@ -223,10 +227,10 @@
         height: 70px;
         margin-top: 15px;
         padding: 7px 16px;
-        border: 2px solid black;
+        border: 2px solid #37317A;
         border-radius: 100%!important;
         font-size: 40px;
-        color: black;
+        color: #A1862C;
         background: 0 0;
         -webkit-transition: background .3s ease-in-out;
         -moz-transition: background .3s ease-in-out;
@@ -236,7 +240,7 @@
     .btn-circle:hover,
     .btn-circle:focus {
         outline: 0;
-        color: black;
+        color: #A1862C;
         background: rgba(255,255,255,.1);
     }
 
@@ -291,6 +295,9 @@
             transform: scale(1);
         }
     }
+    #about h2{
+        
+    }
     .list-inline{
          float: left;
         -webkit-column-count: 3; /* Chrome, Safari, Opera */
@@ -343,7 +350,8 @@
     }
 
     .map {
-        width: 100%;
+        margin-left: 10%;
+        width: 50%;
         margin-top: 100px;
     }
 
@@ -437,6 +445,7 @@
     }
     /*--map end here--*/
     .maintext {
+        margin-top: 6%;
         height: 240px;
         z-index: 2;
         left: auto;
@@ -446,7 +455,14 @@
         color: #292D7E;
         text-align: center;
     }
+    .email{
+        float: right;
+        margin-right: 10%;
+        margin-top: -2%;
+    }
+    .form{
 
+    }
     footer {
         padding: 50px 0;
     }
@@ -507,9 +523,17 @@
         color: #37317A;
         font-weight: lighter;
     }
+    .applications h3 {
+        text-align: center;
+        margin-top: 20%;
+        font-style: italic;
+    }
     .table th, .table td {
         border-top: none !important;
     }
     .applications a {
         font-family: Lora,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    .extra {
+        text-align: center;
     }

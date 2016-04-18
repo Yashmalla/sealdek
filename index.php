@@ -63,7 +63,7 @@
                         <a class="page-scroll" href="./products.html">Products</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#ourWork">Our Work</a>
+                        <a class="page-scroll" href="./ourWork.html">Our Work</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#contact">Contact</a>
@@ -82,7 +82,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div class ="typed"><span class = "element"></span></div>
+<!--                        <div class ="typed"><span class = "element"></span></div>-->
                         <a href="#about" class="btn btn-circle page-scroll">
                             <i class="fa fa-angle-double-down animated"></i>
                         </a>
@@ -97,7 +97,7 @@
     <section id="about" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                 <h2>Welcome to <span class="SEAL1">SEAL</span><span class="DEK">DEK</span> Waterproofing Systems</h2>
+                 <h2>Welcome to <span class="SEAL1">SEAL</span><span class="DEK1">DEK</span> Waterproofing Systems</h2>
                 <p><span class="SEAL">SEAL</span><span class="DEK">DEK</span> Waterproofing Systems are industry leaders in
                 installation of polyurethane and polyuria protective coatings and waterproof systems. Compiling 25 years
                 experience in over 30 different markets in the industry. We work with architects, engineers, and
@@ -173,7 +173,7 @@
                    <div class="col-md-3 ser-grid">
                         <span class="glyphicon glyphicon-home" aria-hidden="true"> </span>
                         <div class="dropdown">
-                            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><h4>Hotel/Condos</h4></span></button>
+                            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><h4>Hotel/Condos</h4></button>
                                 <ul class="dropdown-menu custom-bullet">
                                     <li>&nbsp; Roosevelt New Orleans</li>
                                     <li>&nbsp; Plaza Suite Hotel</li>
@@ -190,7 +190,7 @@
                    <div class="col-md-3 ser-grid">
                         <span class="glyphicon glyphicon-equalizer" aria-hidden="true"> </span>
                         <div class="dropdown">
-                            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><h4>Local Architects</h4></span></button>
+                            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><h4>Local Architects</h4></button>
                                 <ul class="dropdown-menu custom-bullet">
                                     <li>&nbsp;Barry Fox and Associates</li>
                                     <li>&nbsp;Steven Finegan</li>
@@ -205,7 +205,7 @@
                     <div class="col-md-3 ser-grid">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"> </span>
                         <div class="dropdown">
-                            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><h4>Contractors</h4></span></button>
+                            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><h4>Contractors</h4></button>
                                 <ul class="dropdown-menu custom-bullet">
                                   <li>&nbsp;Robert Wolfe Construction</li>
                                     <li>&nbsp;Morse Homes Inc.</li>
@@ -245,7 +245,7 @@
                     <div class="col-md-3 ser-grid">
                         <span class="glyphicon glyphicon-briefcase" aria-hidden="true"> </span>
                         <div class="dropdown">
-                            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><h4>Offshore/Industrial</h4></span></button>
+                            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><h4>Offshore/Industrial</h4></button>
                                 <ul class="dropdown-menu custom-bullet">
                                     <li>&nbsp;Chevron Offshore</li>
                                     <li>&nbsp;Grand Isle Shipyard</li>
@@ -280,21 +280,62 @@
     </section> --> 
 
     <!--map start here-->
-    <div id ="contact" class="map">
-        <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="650" height="550"
-                src="https://maps.google.com/maps?hl=en&q=59015 Amber St, Slidell&ie=UTF8&t=roadmap&z=14&iwloc=B&output=embed">
-            embedgooglemaps.com
-        </iframe>
-    </div>
+
+    <div id ="contact">
+        <div class="email">
+            <img src="img/image2.jpg" alt="subscribe" >
+           <?php
+                include 'db.php';
+                $msg='';
+                if(!empty($_POST['email']) && isset($_POST['email'])){
+                    $email=mysqli_real_escape_string($connection,$_POST['email']);
+                    $regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/';
+                    if(preg_match($regex, $email)){
+                        $activation=md5($email.time());
+                        $count=mysqli_query($connection,"SELECT uid FROM users WHERE email='$email'");
+                        if(mysqli_num_rows($count) < 1){
+                            mysqli_query($connection,"INSERT INTO users(email,activation) VALUES('$email','$activation')");
+                            include 'smtp/Send_Mail.php';
+                            $to=$email;
+                            $subject="Email verification";
+                            $body='Hi, <br/> <br/> We need to make sure you are human. Please verify your email and get started using your Website account. <br/> <br/> <a href="'.$base_url.'activation/'.$activation.'">'.$base_url.'activation/'.$activation.'</a>';
+                            Send_Mail($to,$subject,$body);
+                            $msg= "Registration successful, please activate email."; 
+                        }
+                        else{
+                            $msg= 'The email is already taken, please try new.'; 
+                        }
+                    }
+                    else{
+                        $msg = 'The email you have entered is invalid, please try again.'; 
+                    }
+                }
+        ?>
+        <div class="form">
+            <form action="" method="post">
+                <label>Email:</label>
+                <input type="text" name="email" class="input" autocomplete="off"/>
+                <input type="submit" class="button" value="Subscribe" />
+                <span class='msg'><?php echo $msg; ?></span>
+            </form> 
+        </div>
+        </div>
+        <div class="map">
+            <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="650" height="550"
+                    src="https://maps.google.com/maps?hl=en&q=59015 Amber St, Slidell&ie=UTF8&t=roadmap&z=14&iwloc=B&output=embed">
+                embedgooglemaps.com
+            </iframe>
+        </div>
+    
     <!--map end here-->
     <!-- address -->
-     <div class="maintext" id="address">
-      <p>59015 Amber St., Unit D</p>
-      <p>Slidell, LA 70461</p>
-      <p><strong>(985) 218-9148    </strong></p>
-      <p><strong>info@sealdek.com</strong></p>
+         <div class="maintext" id="address">
+          <p>59015 Amber St., Unit D</p>
+          <p>Slidell, LA 70461</p>
+          <p><strong>(985) 218-9148    </strong></p>
+          <p><strong>info@sealdek.com</strong></p>
+        </div>
     </div>
-
     <!-- Footer -->
     <footer>
         <div class="container text-center">
@@ -316,6 +357,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/grayscale.js"></script>
 
+<!--
     <script src="js/typed.js"></script>
         <script>
         $(function () {
@@ -325,6 +367,7 @@
             });
         });
         </script>
+-->
 </body>
 
 </html>
